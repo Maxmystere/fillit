@@ -1,3 +1,6 @@
 [submodule "tferrieu/libft"]
 	path = tferrieu/libft
 	url = https://github.com/Maxmystere/libft
+[submodule "magrab/libft"]
+	path = magrab/libft
+	url = https://github.com/Maxmystere/libft
