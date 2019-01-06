@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 17:28:02 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/06 19:19:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/06 19:48:06 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int		add_tetri(char **map, t_tetri *tetri, int x, int y)
 		}
 		ry ++;
 	}
-
+	return (0);
 }

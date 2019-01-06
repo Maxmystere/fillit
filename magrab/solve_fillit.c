@@ -6,7 +6,7 @@
 /*   By: magrab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 16:52:24 by magrab            #+#    #+#             */
-/*   Updated: 2019/01/06 19:41:56 by magrab           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:47:26 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ static int		try_fillit(char ***map, int size, t_tetri **tab, int curr_tetri)
 	y = 0;
 	while (try)
 	{
-		try = add_tetri(map, tab[curr_tetri], x, y);
-		if ((try = add_tetri(map, tab, x, y) == 0)) // a pu placer
+		if ((try = add_tetri(*map, tab[0], x, y) == 0)) // a pu placer
 		{
 			if ((try = try_fillit(map, size, tab + 1, curr_tetri + 1)) == 0)
 				return (0);
-			remove_tetri(map, tab[curr_tetri], x, y);
+			remove_tetri(*map, tab[curr_tetri], x, y);
 		}
 		x++;
 		if (x > size - (tab[0])->w)
@@ -40,6 +39,7 @@ static int		try_fillit(char ***map, int size, t_tetri **tab, int curr_tetri)
 				return (-1);
 		}
 	}
+	return (0);
 }
 
 char		**solve_fillit(t_tetri **tab, int nb_tetri)
