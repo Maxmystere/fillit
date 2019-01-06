@@ -1,0 +1,3 @@
+[submodule "tferrieu/libft"]
+	path = tferrieu/libft
+	url = https://github.com/Maxmystere/libft
