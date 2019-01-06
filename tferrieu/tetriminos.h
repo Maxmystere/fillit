@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 16:13:40 by tferrieu          #+#    #+#             */
-/*   Updated: 2018/12/29 17:16:51 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:02:34 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 typedef struct	s_tetri
 {
-	char			**shape;
-	int				h;
-	int				w;
-	int				status;
+	char	**shape;
+	int		h;
+	int		w;
+	int		status;
 }				t_tetri;
 
-int	check_fillit(char **buff, int fd, t_tetri ***tab);
+int				check_fillit(char **buff, int fd, t_tetri ***tab);
 
 #endif
