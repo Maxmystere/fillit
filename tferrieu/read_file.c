@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 19:19:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 20:20:24 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ static char	**get_tetri(char *buff, int i, int h, int w)
 	char	**shape;
 
 	k = 0;
-	if (!(shape = (char **)malloc(sizeof(char *) * h + 1)))
+	if (!(shape = (char **)malloc(sizeof(char *) * (h + 1))))
 		return (NULL);
 	while (k < h)
 	{
-		if (!(shape[k] = ft_strnew(w + 1)) || !(k += 1))
+		if (!(shape[k] = ft_strnew(w + 1)) || !(++k))
 			return (NULL);
 		shape[k - 1] = ft_memset(shape[k - 1], '.', w);
 	}
-	shape[k] = 0;
+	shape[k] = NULL;
 	k = 0;
 	while (buff[i + k] != 35 && buff[i + k + 5] != 35 && buff[i + k + 10] != 35
 			&& buff[i + k + 15] != 35 && k < 4)

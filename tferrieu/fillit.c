@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:29:12 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 19:33:34 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 20:12:51 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,5 @@ int			main(int ac, char **av)
 	if (!(res = solve_fillit(tab, nb_tetri)))
 		return (write(1, "error\n", 6));
 	ft_2dchar_print(res);
-	ft_2dchar_free(&res);
-	free(res);
 	return (0);
 }
