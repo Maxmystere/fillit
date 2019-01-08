@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 19:06:40 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 19:19:57 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ int			check_fillit(int fd, t_tetri ***tab)
 		i++;
 	}
 	(*tab)[i] = NULL;
+	free(buff);
 	return ((rd + 1) / 21);
 }
