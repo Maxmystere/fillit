@@ -6,40 +6,92 @@
 /*   By: magrab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 16:52:24 by magrab            #+#    #+#             */
-/*   Updated: 2019/01/06 19:47:26 by magrab           ###   ########.fr       */
+/*   Updated: 2019/01/08 17:08:52 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tetriminos.h"
 
-static int		try_fillit(char ***map, int size, t_tetri **tab, int curr_tetri)
+static void	remove_tetri(char **map, t_tetri *tetri, int x, int y)
+{
+	int		rx;
+	int		ry;
+	char	**sp;
+
+	ry = 0;
+	sp = tetri->shape;
+	while (ry < tetri->h && map[y + ry])
+	{
+		rx = 0;
+		while (rx < tetri->w && map[y + ry][x + rx])
+		{
+			if (sp[ry][rx] == map[y + ry][x + rx])
+				map[y + ry][x + rx] = '.';
+			rx++;
+		}
+		ry++;
+	}
+}
+
+static int	add_tetri(char **map, t_tetri *tetri, int x, int y)
+{
+	int		rx;
+	int		ry;
+	char	**shape;
+
+	shape = tetri->shape;
+	ry = 0;
+	while (ry < tetri->h && map[y + ry])
+	{
+		rx = 0;
+		while (rx < tetri->w && map[y + ry][x + rx])
+		{
+			if (!map[y + ry][x + rx] || (map[y + ry][x + rx] != '.' &&
+						shape[ry][rx] != '.'))
+			{
+				remove_tetri(map, tetri, x, y);
+				return (1);
+			}
+			if (map[y + ry][x + rx] == '.')
+				map[y + ry][x + rx] = shape[ry][rx];
+			rx++;
+		}
+		ry++;
+	}
+	return (0);
+}
+
+static int	try_fillit(char **map, int size, t_tetri **tab, int curr_tetri)
 {
 	int		try;
 	int		x;
 	int		y;
 
 	try = -1;
-	if (!tab)
+	if (!tab[curr_tetri])
 		return (0);
 	x = 0;
 	y = 0;
-	while (try)
+	printf("\t\t%d\tSolving...\n", curr_tetri);
+	while (try && y > size - (tab[curr_tetri])->h)
 	{
-		if ((try = add_tetri(*map, tab[0], x, y) == 0)) // a pu placer
+		printf("\t\t%d\tPlacing tetri at %d | %d\n", curr_tetri, x, y);
+		if ((try = add_tetri(map, tab[curr_tetri], x, y) == 0))
 		{
-			if ((try = try_fillit(map, size, tab + 1, curr_tetri + 1)) == 0)
+			printf("\t\t%d\tPlaced tetri at %d | %d\n", curr_tetri, x, y);
+			if ((try = try_fillit(map, size, tab, curr_tetri + 1)) == 0)
 				return (0);
-			remove_tetri(*map, tab[curr_tetri], x, y);
+			printf("\t\t%d\tCouldn't place next tetri, removing current tetri at %d | %d\n", curr_tetri, x, y);
+			remove_tetri(map, tab[curr_tetri], x, y);
 		}
 		x++;
-		if (x > size - (tab[0])->w)
+		if (x > size - (tab[curr_tetri])->w)
 		{
 			x = 0;
-			if (++y > size - (tab[0])->h)
-				return (-1);
+			y++;
 		}
 	}
-	return (0);
+	return (-1);
 }
 
 char		**solve_fillit(t_tetri **tab, int nb_tetri)
@@ -50,15 +102,22 @@ char		**solve_fillit(t_tetri **tab, int nb_tetri)
 
 	try = 1;
 	size = 2;
+	printf("\tGetting minimum size\n");
 	while (size * size < nb_tetri * 4)
 		size++;
+	printf("\tMinimum size for %d tetris : %dx%d\n",nb_tetri, size, size);
 	while (try)
 	{
+		printf("\tInitializing map with size %dx%d\n", size, size);
 		if (!(map = ft_2dchar_make(size, size)))
 			return (NULL);
-		try = try_fillit(&map, size, tab, 0);
+		printf("\tStarting solve algorithm on current map\n");
+		try = try_fillit(map, size, tab, 0);
 		if (try && size++)
+		{
+			printf("\tSolving failed, increasing map size\n");
 			ft_2dchar_free(&map);
+		}
 	}
 	return (map);
 }
