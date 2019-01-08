@@ -6,14 +6,13 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 11:18:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 12:44:10 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "tetriminos.h"
-#include "libft/libft.h"
 
 static int	check_tetri(char *buff)
 {
