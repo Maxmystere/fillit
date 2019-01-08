@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:29:12 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 12:55:17 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 18:30:19 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	free_tetri(t_tetri *chain, int *i)
 
 static int	error_free(t_tetri ***tab, char ***res)
 {
-	printf("\tExit : Error detected\n");
 	int i;
 
 	i = 0;
@@ -61,17 +60,13 @@ int			main(int ac, char **av)
 	tab = NULL;
 	res = NULL;
 	(void)av;
-	printf("Opening FD\n");
 	if (ac != 2 || !((fd = open(av[1], O_RDONLY | O_DIRECTORY)) == -1 &&
 				(fd = open(av[1], O_RDONLY)) != -1))
 		return (write(1, "usage: ./fillit source_file\n", 28));
-	printf("Scanning File\n");
 	if (!(nb_tetri = check_fillit(fd, &tab)))
 		return (error_free(&tab, &res));
-	printf("Solving\n");
 	if (!(res = solve_fillit(tab, nb_tetri)))
 		return (error_free(&tab, &res));
-	printf("Printing the result\n");
 	ft_2dchar_print(res);
 	return (0);
 }
