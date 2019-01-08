@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:29:12 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 16:43:42 by magrab           ###   ########.fr       */
+/*   Updated: 2019/01/08 12:55:17 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,6 @@ int			main(int ac, char **av)
 	if (!(nb_tetri = check_fillit(fd, &tab)))
 		return (error_free(&tab, &res));
 	printf("Solving\n");
-	
-	int x = 0;
-	while (tab[x])
-	{
-		ft_2dchar_print(tab[x]->shape);
-		printf("\n\th = %d\tw = %d\n", tab[x]->h, tab[x]->w);
-		x++;
-	}
 	if (!(res = solve_fillit(tab, nb_tetri)))
 		return (error_free(&tab, &res));
 	printf("Printing the result\n");
