@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 18:56:12 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 19:06:40 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_tetri(char *buff)
 		c[1] += (c[2] > 1 ? 1 : 0);
 		i++;
 	}
-	return (c[0] == 4 && c[1] > 1 ? 1 : 0);
+	return (c[0] == 4 && c[1] > 0 ? 1 : 0);
 }
 
 static void	extract_tetri(char *buff, int k, char letter, char ***shape)
