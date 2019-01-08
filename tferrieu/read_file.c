@@ -6,7 +6,7 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/06 16:33:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 11:18:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,15 @@ static int	init_tetri(char *buff, int i, t_tetri **tab)
 	return (1);
 }
 
-int			check_fillit(char **buff, int fd, t_tetri ***tab)
+int			check_fillit(int fd, t_tetri ***tab)
 {
-	int rd;
-	int i;
+	int		rd;
+	int		i;
+	char	*buff;
 
-	if (!(*buff = ft_strnew(546)))
+	if (!(buff = ft_strnew(546)))
 		return (0);
-	if (((rd = read(fd, *buff, 546)) + 1) % 21 || rd >= 546)
+	if (((rd = read(fd, buff, 546)) + 1) % 21 || rd >= 546)
 		return (0);
 	if (!(*tab = (t_tetri **)malloc(sizeof(t_tetri *) * ((rd + 1) / 21 + 1))))
 		return (0);
@@ -133,7 +134,7 @@ int			check_fillit(char **buff, int fd, t_tetri ***tab)
 	while (i < (rd + 1) / 21)
 	{
 		(*tab)[i] = NULL;
-		if (!(init_tetri(*buff, i, *tab)))
+		if (!(init_tetri(buff, i, *tab)))
 			return (0);
 		((*tab)[i])->status = 1;
 		i++;
