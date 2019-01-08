@@ -6,7 +6,7 @@
 /*   By: magrab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 16:52:24 by magrab            #+#    #+#             */
-/*   Updated: 2019/01/08 13:25:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:14:14 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	remove_tetri(char **map, t_tetri *tetri, int x, int y)
 
 	ry = 0;
 	sp = tetri->shape;
-	while (ry < tetri->h)
+	while (ry < tetri->h && map[ry + y])
 	{
 		rx = 0;
-		while (rx < tetri->w)
+		while (rx < tetri->w && map[ry + y][rx + x])
 		{
 			if (sp[ry][rx] == map[y + ry][x + rx])
 				map[y + ry][x + rx] = '.';
@@ -39,6 +39,8 @@ static int	add_tetri(char **map, t_tetri *tetri, int x, int y)
 	int		ry;
 	char	**shape;
 
+	write(1,"\t\t\ttest\n",8);
+	printf("\t\t\t%d | %d\t Adding tetri...\n", x, y);
 	shape = tetri->shape;
 	ry = 0;
 	while (ry < tetri->h)
@@ -46,14 +48,19 @@ static int	add_tetri(char **map, t_tetri *tetri, int x, int y)
 		rx = 0;
 		while (rx < tetri->w)
 		{
-			if (!map[y + ry][x + rx] || (map[y + ry][x + rx] != '.' &&
-						shape[ry][rx] != '.'))
+			printf("\t\t\t%d | %d\t Relative pos : %d | %d\n", x, y, rx, ry);
+			if (!map || !map[y] || !map[y + ry][x + rx] ||
+				(map[y + ry][x + rx] != '.' && shape[ry][rx] != '.'))
 			{
+				printf("\t\t\t%d | %d\t Cannot place block. Removing previous blocks\n", x, y);
 				remove_tetri(map, tetri, x, y);
 				return (1);
 			}
-			if (map[y + ry][x + rx] == '.')
+			if (shape[ry][rx] != '.')
+			{
+				printf("\t\t\t%d | %d\t Placing block %c\n", x, y, shape[ry][rx]);
 				map[y + ry][x + rx] = shape[ry][rx];
+			}
 			rx++;
 		}
 		ry++;
@@ -76,6 +83,7 @@ static int	try_fillit(char **map, int size, t_tetri **tab, int curr_tetri)
 	while (try && y > size - (tab[curr_tetri])->h)
 	{
 		printf("\t\t%d\tPlacing tetri at %d | %d\n", curr_tetri, x, y);
+		write(1,"\t\t\ttest\n",8);
 		if ((try = add_tetri(map, tab[curr_tetri], x, y) == 0))
 		{
 			printf("\t\t%d\tPlaced tetri at %d | %d\n", curr_tetri, x, y);
