@@ -6,7 +6,7 @@
 /*   By: magrab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 16:52:24 by magrab            #+#    #+#             */
-/*   Updated: 2019/01/08 17:14:14 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:56:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	add_tetri(char **map, t_tetri *tetri, int x, int y)
 	int		ry;
 	char	**shape;
 
-	write(1,"\t\t\ttest\n",8);
 	printf("\t\t\t%d | %d\t Adding tetri...\n", x, y);
 	shape = tetri->shape;
 	ry = 0;
@@ -79,11 +78,10 @@ static int	try_fillit(char **map, int size, t_tetri **tab, int curr_tetri)
 		return (0);
 	x = 0;
 	y = 0;
-	printf("\t\t%d\tSolving...\n", curr_tetri);
-	while (try && y > size - (tab[curr_tetri])->h)
+	printf("\t\t%d\tSolving...  %d | %d | %d\n", curr_tetri, try, size, tab[curr_tetri]->h);
+	while (try && y <= size - (tab[curr_tetri])->h)
 	{
 		printf("\t\t%d\tPlacing tetri at %d | %d\n", curr_tetri, x, y);
-		write(1,"\t\t\ttest\n",8);
 		if ((try = add_tetri(map, tab[curr_tetri], x, y) == 0))
 		{
 			printf("\t\t%d\tPlaced tetri at %d | %d\n", curr_tetri, x, y);
@@ -117,7 +115,7 @@ char		**solve_fillit(t_tetri **tab, int nb_tetri)
 	while (try)
 	{
 		printf("\tInitializing map with size %dx%d\n", size, size);
-		if (!(map = ft_2dchar_make(size, size)))
+		if (!(map = ft_2dchar_make(size, size, '.')))
 			return (NULL);
 		printf("\tStarting solve algorithm on current map\n");
 		try = try_fillit(map, size, tab, 0);
