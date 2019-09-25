@@ -6,12 +6,10 @@
 /*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 17:28:32 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/01/08 20:42:45 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/01/09 15:26:28 by magrab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include "tetriminos.h"
 
 static int	check_tetri(char *buff)
